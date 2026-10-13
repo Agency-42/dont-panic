@@ -1,0 +1,19 @@
+# Default deny: blocks ALL ingress and egress traffic for every pod in the namespace.
+#
+# DON'T PANIC, but do read this first:
+#   Applied on its own, this also blocks DNS. Every pod in the namespace will
+#   fail name lookups ("could not resolve host", "i/o timeout" against port 53).
+#   Always apply it together with 01-allow-dns-egress*.yaml for your distribution.
+#
+# Change "my-app" to your namespace. Requires a CNI that enforces NetworkPolicy
+# (Calico, Cilium, Canal, OVN-Kubernetes, ...). Flannel on its own does not.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: my-app
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress

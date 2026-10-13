@@ -1,0 +1,29 @@
+# Allow DNS egress to the cluster DNS (CoreDNS) on vanilla Kubernetes and RKE2.
+#
+# CoreDNS runs in kube-system with the label k8s-app=kube-dns on both
+# upstream Kubernetes (kubeadm) and RKE2. Verify on your cluster:
+#   kubectl get pods -n kube-system -l k8s-app=kube-dns
+#
+# Using OpenShift? Use 01-allow-dns-egress-openshift.yaml instead.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-egress
+  namespace: my-app
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53

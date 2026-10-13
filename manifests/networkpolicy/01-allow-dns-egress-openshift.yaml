@@ -1,0 +1,32 @@
+# Allow DNS egress to the cluster DNS on OpenShift 4.x.
+#
+# Two things differ from vanilla Kubernetes:
+#   1. DNS pods live in the openshift-dns namespace, not kube-system.
+#   2. The dns-default Service listens on 53 but the pods listen on 5353.
+#      NetworkPolicy is evaluated against the pod port, so allowing only 53
+#      still breaks DNS. This one bites people a lot.
+# Verify on your cluster:
+#   oc get pods -n openshift-dns -l dns.operator.openshift.io/daemonset-dns=default
+#   oc get svc dns-default -n openshift-dns -o yaml   # look at targetPort
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-egress
+  namespace: my-app
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: openshift-dns
+          podSelector:
+            matchLabels:
+              dns.operator.openshift.io/daemonset-dns: default
+      ports:
+        - protocol: UDP
+          port: 5353
+        - protocol: TCP
+          port: 5353
