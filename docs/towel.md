@@ -27,6 +27,8 @@ kubectl get events -n <ns> --field-selector involvedObject.name=<pod>
 Exit codes worth knowing: **137** = OOMKilled (or SIGKILL), **139** = segfault,
 **1** / app-specific = process exited. `CrashLoopBackOff` is a symptom, not a cause.
 
+See [crashloopbackoff](entries/crashloopbackoff.md).
+
 ## DNS / "could not resolve host"
 
 ```bash

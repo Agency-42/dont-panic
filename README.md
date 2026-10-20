@@ -43,16 +43,17 @@ Prefer read-only commands first. If you're about to renew control-plane certs or
 restart static pods, make sure you still have SSH/console access that does not
 depend on the API.
 
-## v0.1 entries
+## Entries
 
 | Entry | Symptom |
 |---|---|
 | [networkpolicy-blocks-dns](docs/entries/networkpolicy-blocks-dns.md) | Default-deny NetworkPolicy; DNS lookups time out (`i/o timeout` on `:53`) |
 | [x509-certificate-has-expired](docs/entries/x509-certificate-has-expired.md) | `x509: certificate has expired or is not yet valid` |
 | [openshift-unable-to-validate-against-any-scc](docs/entries/openshift-unable-to-validate-against-any-scc.md) | `unable to validate against any security context constraint` |
+| [crashloopbackoff](docs/entries/crashloopbackoff.md) | `CrashLoopBackOff`, restart count climbing (exit codes, OOMKilled, liveness probes) |
 
-More entries are coming (CrashLoopBackOff, ImagePullBackOff, Pending /
-FailedScheduling, and friends). Issues and PRs that add real field notes are
+More entries are coming (ImagePullBackOff, Pending / FailedScheduling,
+OOMKilled, and friends). Issues and PRs that add real field notes are
 welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). Humans review before merge.
 
 ## Companion repos
@@ -69,7 +70,7 @@ for making Friday quieter.
 
 ```
 docs/towel.md                 # one-page kubectl/oc triage cheat sheet
-docs/entries/                 # field-guide entries (this release: 3)
+docs/entries/                 # field-guide entries (4 so far)
 manifests/networkpolicy/      # default-deny + DNS egress (vanilla + OpenShift)
 CONTRIBUTING.md
 LICENSE                       # Apache-2.0
