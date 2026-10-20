@@ -88,6 +88,8 @@ Where it fits naturally we touch NIS2 / CRA / ISO 27001, but good engineering
 comes first. We are **not** a Red Hat or SUSE partner — just engineers who work
 on those platforms a lot.
 
+Agency 42 is based in Svedala, Skåne. Need hands-on help? See our [Kubernetes-konsult i Skåne](https://agency42.se/kubernetes-konsult-skane) and [DevSecOps-konsult](https://agency42.se/devops-secops) pages (Swedish).
+
 **[agency42.se](https://agency42.se)** · **[LinkedIn](https://www.linkedin.com/company/agency42ab)**
 
 ---
